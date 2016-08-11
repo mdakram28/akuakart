@@ -1,0 +1,55 @@
+<style>
+
+li.cat .arrow{
+    transform: rotate(90deg);
+    transition: transform 0.1s ease-in-out;
+    cursor: pointer;
+    display: inline-block;
+}
+
+li.cat.collapsed .arrow{
+    transform: rotate(0deg);
+}
+
+li.cat ul{
+    overflow: hidden;
+    transition: height 0.1s ease-in-out;
+}
+
+li.cat.collapsed ul{
+    height: 0px !important;
+}
+
+</style>
+
+<ul style="list-style-type:none">
+    <% categories.forEach(function(cat){ %>
+        <li class="cat">
+            <h5><b><span class="arrow">&gt;</span> <a href="/category/<%- cat %>"><%= cat %></a></b></h5>
+            <ul>
+                <% subcategories[cat].forEach(function(subcat){ %>
+                    <li><a href="/category/<%- cat %>/<%- subcat %>"><%= subcat %></a></li>
+                <% }) %>
+            </ul>
+        </li>
+    <% }) %>
+</ul>
+
+<script>
+
+$("li.cat .arrow").click(function(){
+    console.log("expand");
+    $(this).parents("li.cat").toggleClass("collapsed");
+});
+
+$(document).ready(function(){
+    $("li.cat ul").each(function(){
+        var h = $(this).height();
+        $(this).css({
+            height : h
+        });
+        $(this).parents("li.cat").addClass("collapsed");
+    });
+});
+
+</script>

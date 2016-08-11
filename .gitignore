@@ -1,0 +1,7 @@
+node_modules/
+dump/
+data/
+public/
+references/
+uploads/
+config/database.js
